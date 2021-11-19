@@ -1,3 +1,4 @@
+<!--使ってない(memo)-->
 <% if book.favorited_by?(current_user) %>
 <%= link_to favorites_path(book), method: :delete do %>
 ❤ <%= book.favorites.count %>
@@ -8,4 +9,18 @@
 <%= link_to favorites_path(book), method: :post do %>
 ♡ <%= book.favorites.count %>
 <% end %>
+<% end %>
+
+
+<!--コメント-->
+コメント数: <%= @book.book_comments.count %>
+
+<% @book.book_comments.each do |book_comment| %>
+<%= attachment_image_tag(@book.user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+<%= book_comment.comment %>
+<% end %>
+
+<%= form_with(model:[@book, @book_comment], local: true) do |f| %>
+<%= f.text_area :comment, rows:'3' %>
+<%= f.submit "送信" %>
 <% end %>
