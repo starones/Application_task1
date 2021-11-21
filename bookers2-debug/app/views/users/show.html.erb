@@ -1,8 +1,45 @@
 <div class='container px-5 px-sm-0'>
   <div class='row'>
     <div class='col-md-3'>
+
+
       <h2>User info</h2>
-      <%= render 'info', user: @user %>
+      <table class='table'>
+  <tr><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= @user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= @user.introduction %></th>
+  </tr>
+  <tr>
+    <th>follows</th>
+    <th><%= link_to "#{@user.followers.count}", followings_user_path %></th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th><%= link_to "#{@user.followings.count}", followers_user_path %></th>
+  </tr>
+</table>
+
+<% unless @user == current_user %>
+  <% if current_user.following?(@user) %>
+    <%= button_to 'フォロー外す', relationship_path, method: :delete %>
+  <% else %>
+    <%= form_with model: @user.followers.build, local:true do |f| %>
+    <%= hidden_field_tag :follow_id, @user.id %>
+        <%= f.submit 'フォローする' %>
+    <% end %>
+    <% end %>
+<% end %>
+<div class='row'>
+  <%= link_to '',edit_user_path(@user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{@user.id}" %>
+</div>
+
+
+
       <h2 class="mt-3">New book</h2>
       <%= render 'books/form', book: @book %>
     </div>

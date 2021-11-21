@@ -8,8 +8,26 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  <tr>
+    <th>follows</th>
+    <th><%= link_to "#{user.followers.count}", followings_user_path(user) %></th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th><%= link_to "#{user.followings.count}", followers_user_path(user) %></th>
+  </tr>
 </table>
 
+<% unless user == current_user %>
+  <% if current_user.following?(user) %>
+    <%= button_to 'フォロー外す', relationship_path, method: :delete %>
+  <% else %>
+    <%= form_with model: user.followers.build, local:true do |f| %>
+    <%= hidden_field_tag :follow_id, user.id %>
+        <%= f.submit 'フォローする' %>
+    <% end %>
+    <% end %>
+<% end %>
 <div class='row'>
   <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
 </div>
