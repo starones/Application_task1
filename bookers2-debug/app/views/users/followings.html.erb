@@ -1,30 +1,21 @@
-<table class='table'>
+<h2>Follow Urers</h2>
+<table class="table">
   <thead>
-    <tr>
+      <tr>
       <th>image</th>
       <th>name</th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
-    <% users.each do |user| %>
+    <% @followings.each do |user| %>
       <tr>
         <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
         <td><%= user.name %></td>
         <td><%= "フォロー数: #{user.followers.count}" %></td>
         <td><%= "フォロワー数: #{user.followings.count}" %></td>
-        <td><% unless user == current_user %>
-  <% if current_user.following?(user) %>
-    <%= button_to 'フォロー外す', relationship_path(user), method: :delete %>
-  <% else %>
-    <%= form_with model: user.followers.build, local:true do |f| %>
-    <%= hidden_field_tag :follow_id, user.id %>
-        <%= f.submit 'フォローする' %>
-    <% end %>
-    <% end %>
-<% end %></td>
         <td><%= link_to 'Show', user_path(user), class: "user_#{user.id}" %></td>
       </tr>
-    <% end %>
+      <% end %>
   </tbody>
 </table>
