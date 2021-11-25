@@ -26,10 +26,12 @@ class UsersController < ApplicationController
 
   # フォロー機能
   def followings
+    @user = User.find(params[:id])
     @followings = @user.following_users
   end
 
   def followers
+    @user = User.find(params[:id])
     @followers = @user.follower_users
   end
   # ここまで
@@ -41,8 +43,5 @@ class UsersController < ApplicationController
 
   def ensure_correct_user
     @user = User.find(params[:id])
-    unless @user == current_user
-      redirect_to user_path(current_user)
-    end
   end
 end
