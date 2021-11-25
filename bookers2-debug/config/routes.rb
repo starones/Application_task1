@@ -17,4 +17,7 @@ Rails.application.routes.draw do
 
 root to: 'homes#top'
 
+# 検索機能
+get 'search' => 'searches#search'
+
 end
