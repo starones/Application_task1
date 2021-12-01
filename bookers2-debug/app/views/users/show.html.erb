@@ -35,11 +35,30 @@
     <% end %>
 <% end %>
 
+<!----DM機能------>
+<% unless @user.id == current_user.id %>
+
+  <% if @isRoom == true %>
+  <p class="user-show-room"><a href="/rooms/<%= @roomId %>">チャットへ</a></p>
+  <% else %>
+  <%= form_with model: @room do |f| %>
+  <%= fields_for @entry do |e| %>
+  <%= e.hidden_field :use_id, value: @user.id %>
+  <% end %>
+  <%= f.submit "チャットを始める" %>
+  <% end %>
+  <% end %>
+
+  <% end %>
+  <!------ここまで-------->
+
+
 <% if @user.id == current_user.id %>
 <div class='row'>
   <%= link_to '',edit_user_path(@user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{@user.id}" %>
 </div>
 <% end %>
+
 
 
 

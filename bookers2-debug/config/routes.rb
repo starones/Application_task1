@@ -15,9 +15,13 @@ Rails.application.routes.draw do
   resource :favorites, only: [:create, :destroy]
   end
 
-root to: 'homes#top'
+  root to: 'homes#top'
 
-# 検索機能
-get 'search' => 'searches#search'
+  # 検索機能
+  get 'search' => 'searches#search'
+
+  # DM機能
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create, :show]
 
 end

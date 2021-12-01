@@ -8,6 +8,10 @@ class User < ApplicationRecord
  attachment :profile_image, destroy: false
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
+  # DM機能
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  # ここまで
 
   # フォロー機能
   has_many :followers, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy, inverse_of: :follower
