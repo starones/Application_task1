@@ -2,6 +2,9 @@ class Book < ApplicationRecord
 	belongs_to :user
 	has_many :book_comments, dependent: :destroy
 	has_many :favorites, dependent: :destroy
+# 	--------1週間のいいね数多い順-------
+  has_many :favorited_users, through: :favorites, source: :user
+# ------------ここまで-------
 
 	def favorited_by?(user)
 		favorites.where(user_id: user.id).exists?
