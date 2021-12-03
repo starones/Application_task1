@@ -1,10 +1,14 @@
 class BooksController < ApplicationController
 
+  impressionist :actions => [:show, :index], unique: [:ip_address]
+
   def show
     @book = Book.find(params[:id])
     @user = @book.user
     @newbook = Book.new
     @book_comment = BookComment.new
+    #更新しても閲覧数がカウントしないように設定したため下記と上記「, unique: [:ip_address]」を消すと閲覧数は上がる
+    impressionist(@book, nil, unique: [:ip_address])
 
     # DM機能
     @currentUserEntry = Entry.where(user_id: current_user.id)
@@ -26,6 +30,7 @@ class BooksController < ApplicationController
     end
   end
 
+
   def index
     # @books = Book.all
     # いいねの数順しかできなかった（過去1週間はできてない）
@@ -36,6 +41,7 @@ class BooksController < ApplicationController
       }
     @book = Book.new
   end
+
 
   def create
     @book = Book.new(book_params)

@@ -27,5 +27,10 @@ class Book < ApplicationRecord
           @book = Book.all
         end
 	end
+	# --------ここまで--------
+
+# 	-----投稿カウント-----
+  is_impressionable
+
 end
-# --------ここまで--------
+
