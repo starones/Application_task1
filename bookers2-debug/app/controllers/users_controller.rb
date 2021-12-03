@@ -2,13 +2,14 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update, :edit, :show, :followings, :followers, :destroy]
 
   def show
-    @user = User.find(params[:id])
+
     @books = @user.books
     @book = Book.new
 
     # DM機能
-    @currentUserEntry=Entry.where(user_id: current_user.id)
-    @userEntry=Entry.where(user_id: @user.id)
+    @user = User.find(params[:id])
+    @currentUserEntry = Entry.where(user_id: current_user.id)
+    @userEntry = Entry.where(user_id: @user.id)
     unless @user.id == current_user.id
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|

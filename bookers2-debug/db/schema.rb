@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_123537) do
+ActiveRecord::Schema.define(version: 2021_12_03_032458) do
 
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2021_12_01_123537) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "content"
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end

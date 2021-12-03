@@ -36,20 +36,21 @@
 <% end %>
 
 <!----DM機能------>
-<% unless @user.id == current_user.id %>
 
+<% if @user.id == current_user.id %>
+
+<% else %>
   <% if @isRoom == true %>
-  <p class="user-show-room"><a href="/rooms/<%= @roomId %>">チャットへ</a></p>
+    <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
   <% else %>
-  <%= form_with model: @room do |f| %>
-  <%= fields_for @entry do |e| %>
-  <%= e.hidden_field :use_id, value: @user.id %>
+    <%= form_for @room do |f| %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, :value=> @user.id %>
+      <% end %>
+      <%= f.submit "チャットを始める" %>
+    <% end %>
   <% end %>
-  <%= f.submit "チャットを始める" %>
-  <% end %>
-  <% end %>
-
-  <% end %>
+<% end %>
   <!------ここまで-------->
 
 
