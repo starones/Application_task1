@@ -32,13 +32,7 @@ class BooksController < ApplicationController
 
 
   def index
-    # @books = Book.all
-    # いいねの数順しかできなかった（過去1週間はできてない）
-    @books = Book.includes(:favorited_users).
-      sort {|a,b|
-        b.favorited_users.size <=>
-        a.favorited_users.size
-      }
+    @books = Book.left_joins(:favorites).group(:id).order(Arel.sql('count(book_id) desc'))
     @book = Book.new
   end
 
