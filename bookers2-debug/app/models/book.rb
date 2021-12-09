@@ -32,5 +32,11 @@ class Book < ApplicationRecord
 # 	-----投稿カウント-----
   is_impressionable
 
+  # -------ソート機能------
+  scope :latest, -> {order(created_at: :desc)}
+  scope :evaluation, -> {order(rate: :desc)}
+
+
+
 end
 
